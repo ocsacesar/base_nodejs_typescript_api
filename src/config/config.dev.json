@@ -1,0 +1,16 @@
+{
+    "database": {
+        "connectionString": "https://localhost:5432/test"
+    },
+    "server": {
+        "port": 5000,
+        "jwtSecret": "random-secret-password",
+        "jwtExpiration": "1h",
+        "routePrefix": "/api",
+        "plugins": [
+            "jwt-auth",
+            "logger",
+            "swagger"
+        ]
+    }
+}
