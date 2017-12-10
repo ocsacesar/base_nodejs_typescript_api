@@ -2,12 +2,12 @@
  * Created by cesar on 07/12/17.
  */
 import * as Hapi from "hapi";
-import * as config from "./setting";
+import * as settings from "./setting";
 
 export class Server {
 
     constructor() {
-        console.log('Starting Application...');
+        console.log('Starting ' + settings.getProjectName() + ' Application...');
         this.init();
     }
 
@@ -15,7 +15,7 @@ export class Server {
         // Create a server with a host and port
         const server = Hapi.server({
             host: 'localhost',
-            port: config.getEnvironment().server.port
+            port: settings.getSettings().server.port
         });
 
         try {

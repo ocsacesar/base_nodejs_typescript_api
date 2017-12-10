@@ -1,4 +1,6 @@
 {
+    "projectName": "BaseProject",
+    "version": "0.0.1",
     "dev": {
         "database": {
             "connectionString": "https://localhost:5432/test"

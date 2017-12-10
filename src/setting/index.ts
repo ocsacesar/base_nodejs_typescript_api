@@ -4,9 +4,11 @@
 import * as nconf from "nconf";
 import * as path from "path";
 
-const configs = nconf.file(path.join(__dirname, './settings.json'));
+const settings = nconf.file(path.join(__dirname, './settings.json'));
 
 export interface IEnvironment {
+    projectName: string;
+    version: string;
     database: IDatabaseSetting;
     server: IServerSettings;
 }
@@ -23,6 +25,22 @@ export interface IDatabaseSetting {
     connectionString: string;
 }
 
-export function getEnvironment(env?: string): IEnvironment {
-    return configs.get(env || 'dev');
+export function getSettings(env?: string): IEnvironment {
+    return settings.get(env || 'dev');
+}
+
+export function getProjectName(): string {
+    return settings.get('projectName');
+}
+
+export function getVersion(): string {
+    return settings.get('version');
+}
+
+export function getDatabase(env?: string): IDatabaseSetting {
+    return settings.get(env || 'dev').database;
+}
+
+export function getServerInfo(env?: string): IServerSettings {
+    return settings.get(env || 'dev').server;
 }
