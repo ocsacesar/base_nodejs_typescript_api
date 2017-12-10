@@ -55,11 +55,11 @@ gulp.task('watch', shell.task([
 ]));
 
 /**
- * Copy config files
+ * Copy setting files
  */
 gulp.task('configs', (cb) => {
-    return gulp.src("src/config/*.json")
-        .pipe(gulp.dest('./build/src/config'));
+    return gulp.src("src/setting/*.json")
+        .pipe(gulp.dest('./build/src/setting'));
 });
 
 /**

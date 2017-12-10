@@ -1,12 +1,6 @@
 /**
  * Created by cesar on 09/12/17.
  */
-export class StartApp {
+import {Server} from "./server";
 
-    constructor() {
-        console.log('App Starting!!!');
-    }
-
-}
-
-new StartApp();
+new Server();
