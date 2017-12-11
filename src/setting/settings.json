@@ -3,7 +3,11 @@
     "version": "0.0.1",
     "dev": {
         "database": {
-            "connectionString": "https://localhost:5432/test"
+            "database": "baseProject",
+            "dialect": "postgres",
+            "username": "postgres",
+            "password": "postgres",
+            "host": "http://localhost"
         },
         "server": {
             "port": 5000,
@@ -19,7 +23,11 @@
     },
     "prod": {
         "database": {
-            "connectionString": "https://localhost:5432/test"
+            "database": "baseProject",
+            "dialect": "postgres",
+            "username": "postgres",
+            "password": "postgres",
+            "host": "http://localhost"
         },
         "server": {
             "port": 5000,
@@ -35,7 +43,11 @@
     },
     "test": {
         "database": {
-            "connectionString": "https://localhost:5432/test"
+            "database": "baseProject",
+            "dialect": "postgres",
+            "username": "postgres",
+            "password": "postgres",
+            "host": "http://localhost"
         },
         "server": {
             "port": 5000,

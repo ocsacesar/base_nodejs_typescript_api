@@ -3,6 +3,7 @@
  */
 import * as Hapi from "hapi";
 import * as settings from "./setting";
+import { sequelize } from './dao/index';
 
 export class Server {
 
@@ -24,6 +25,11 @@ export class Server {
             console.log(err);
             process.exit(1);
         }
+
+        // Initializing DataBase
+        (async () => {
+            await sequelize.sync({force: true});
+        })();
 
         console.log('Server running at:', server.info.uri);
     }

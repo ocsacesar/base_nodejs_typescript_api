@@ -22,7 +22,11 @@ export interface IServerSettings {
 }
 
 export interface IDatabaseSetting {
-    connectionString: string;
+    database: string;
+    dialect: string;
+    username: string;
+    password: string;
+    host: string;
 }
 
 export function getSettings(env?: string): IEnvironment {
