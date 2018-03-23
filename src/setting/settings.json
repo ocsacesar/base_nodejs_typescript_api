@@ -15,8 +15,6 @@
             "jwtExpiration": "1h",
             "routePrefix": "/api",
             "plugins": [
-                "jwt-auth",
-                "logger",
                 "swagger"
             ]
         }

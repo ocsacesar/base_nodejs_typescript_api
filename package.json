@@ -23,14 +23,19 @@
   "author": "Ovídio César",
   "license": "MIT",
   "dependencies": {
+    "boom": "^7.2.0",
     "gulp": "^3.9.1",
     "hapi": "^17.1.1",
-    "inert": "^5.0.1",
+    "hapi-auth-jwt2": "^8.0.0",
+    "hapi-swagger": "^9.1.1",
+    "inert": "^5.1.0",
+    "joi": "^13.1.2",
     "nconf": "^0.9.1",
     "pg": "^7.4.0",
     "reflect-metadata": "^0.1.10",
     "sequelize": "^4.27.0",
-    "sequelize-typescript": "^0.6.1"
+    "sequelize-typescript": "^0.6.1",
+    "vision": "^5.3.2"
   },
   "devDependencies": {
     "@types/node": "^8.0.57",
