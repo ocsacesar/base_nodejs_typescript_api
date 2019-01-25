@@ -1,5 +1,5 @@
 /**
- * Created by cesar on 10/12/17.
+ * Created by Ovídio César on 10/12/17.
  */
 import { Sequelize } from 'sequelize-typescript';
 import * as path from 'path';

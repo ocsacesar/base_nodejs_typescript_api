@@ -1,9 +1,9 @@
 /**
- * Created by cesar on 10/12/17.
+ * Created by Ovídio César on 10/12/17.
  */
 import {Model, Table, Column, CreatedAt, UpdatedAt, DeletedAt} from 'sequelize-typescript';
 
-@Table
+@Table({tableName: 'user'})
 export class User extends Model<User> {
 
     @Column

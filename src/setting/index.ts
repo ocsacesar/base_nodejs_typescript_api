@@ -1,10 +1,11 @@
 /**
- * Created by cesar on 10/12/17.
+ * Created by Ovídio César on 10/12/17.
  */
 import * as nconf from "nconf";
 import * as path from "path";
 
 const settings = nconf.file(path.join(__dirname, './settings.json'));
+let environment = 'dev';
 
 export interface IEnvironment {
     projectName: string;
@@ -14,6 +15,7 @@ export interface IEnvironment {
 }
 
 export interface IServerSettings {
+    environment: string;
     port: number;
     plugins: Array<string>;
     jwtSecret: string;
@@ -27,10 +29,19 @@ export interface IDatabaseSetting {
     username: string;
     password: string;
     host: string;
+    force: boolean;
 }
 
-export function getSettings(env?: string): IEnvironment {
-    return settings.get(env || 'dev');
+export function setEnvironment(env?: string) {
+    environment = env || 'dev';
+}
+
+export function getEnvironment(): IServerSettings {
+    return settings.get(environment).server.environment;
+}
+
+export function getSettings(): IEnvironment {
+    return settings.get(environment);
 }
 
 export function getProjectName(): string {
@@ -41,10 +52,10 @@ export function getVersion(): string {
     return settings.get('version');
 }
 
-export function getDatabase(env?: string): IDatabaseSetting {
-    return settings.get(env || 'dev').database;
+export function getDatabase(): IDatabaseSetting {
+    return settings.get(environment).database;
 }
 
-export function getServerInfo(env?: string): IServerSettings {
-    return settings.get(env || 'dev').server;
+export function getServerInfo(): IServerSettings {
+    return settings.get(environment).server;
 }

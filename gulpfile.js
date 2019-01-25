@@ -1,22 +1,17 @@
 /**
- * Created by cesar on 07/12/17.
+ * Created by Ovídio César on 07/12/17.
  */
 'use strict';
 
 const gulp = require('gulp');
 const rimraf = require('gulp-rimraf');
 const tslint = require('gulp-tslint');
-const mocha = require('gulp-mocha');
 const shell = require('gulp-shell');
-const env = require('gulp-env');
 
 /**
  * Remove build directory.
  */
-gulp.task('clean', function () {
-    return gulp.src("build", { read: false })
-        .pipe(rimraf());
-});
+gulp.task('clean', () => gulp.src("build", {read: false}).pipe(rimraf()));
 
 /**
  * Lint all custom TypeScript files.
@@ -29,42 +24,19 @@ gulp.task('tslint', () => {
         .pipe(tslint.report());
 });
 
-/**
- * Compile TypeScript.
- */
-function compileTS(args, cb) {
-    return exec(tscCmd + args, (err, stdout, stderr) => {
-        console.log(stdout);
-
-        if (stderr) {
-            console.log(stderr);
-        }
-        cb(err);
-    });
-}
-
-gulp.task('compile', shell.task([
-    'npm run tsc',
-]));
+gulp.task('compile', shell.task(['npm run tsc']));
 
 /**
  * Watch for changes in TypeScript
  */
-gulp.task('watch', shell.task([
-    'npm run tsc-watch',
-]));
+gulp.task('watch', shell.task(['npm run tsc-watch']));
 
 /**
  * Copy setting files
  */
-gulp.task('configs', (cb) => {
-    return gulp.src("src/setting/*.json")
-        .pipe(gulp.dest('./build/src/setting'));
-});
+gulp.task('configs', () => gulp.src("src/setting/*.json").pipe(gulp.dest('./build/src/setting')));
 
 /**
  * Build the project.
  */
-gulp.task('build', ['tslint', 'compile', 'configs'], () => {
-    console.log('Building the project ...');
-});
+gulp.task('build', gulp.parallel('tslint', 'compile', 'configs'), () => console.log('Building the project ...'));

@@ -1,26 +1,26 @@
 /**
- * Created by cesar on 07/12/17.
+ * Created by Ovídio César on 07/12/17.
  */
 import * as Hapi from "hapi";
 import * as settings from "./setting";
 import { sequelize } from './dao/index';
 import { Swagger } from "./plugins/swagger/swagger";
 import { Security } from "./plugins/jwt-auth/security";
+import * as Colors from "Colors";
 
 import * as User from "./app/users";
 
 export class Server {
 
-    constructor() {
-        console.log('Starting ' + settings.getProjectName() + ' Application...');
+    constructor(env = 'env') {
+        // Setting environment
+        settings.setEnvironment(env);
+
+        console.log(Colors.green(`Starting ${settings.getProjectName()} application on ${settings.getEnvironment()} environment ...`));
+
         this.init()
-            .then(server => {
-                console.log('Server Created!');
-                console.log('Server running at:', server.info.uri);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+            .then(server => console.log(Colors.green(`Server running at: ${server.info.uri}`)))
+            .catch(err => console.log(Colors.red(err)));
     }
 
     async init() {
@@ -36,7 +36,7 @@ export class Server {
         /**
          * Registering plugins
          */
-        await sequelize.sync({force: true});
+        await sequelize.sync({force: settings.getDatabase().force});
 
         const swagger = new Swagger();
         await swagger.register(server);
@@ -47,7 +47,6 @@ export class Server {
         /**
          * Routes
          */
-
         User.init(server, settings.getServerInfo(), sequelize);
 
         server.route([
@@ -78,4 +77,3 @@ export class Server {
     }
 
 }
-

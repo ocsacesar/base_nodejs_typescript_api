@@ -3,31 +3,37 @@
     "version": "0.0.1",
     "dev": {
         "database": {
-            "database": "baseProject",
+            "database": "base",
             "dialect": "postgres",
             "username": "postgres",
             "password": "postgres",
-            "host": "http://localhost"
+            "host": "127.0.0.1",
+            "force": true
         },
         "server": {
+            "environment": "Development",
             "port": 5000,
             "jwtSecret": "random-secret-password",
             "jwtExpiration": "1h",
             "routePrefix": "/api",
             "plugins": [
+                "jwt-auth",
+                "logger",
                 "swagger"
             ]
         }
     },
     "prod": {
         "database": {
-            "database": "baseProject",
+            "database": "base",
             "dialect": "postgres",
             "username": "postgres",
             "password": "postgres",
-            "host": "http://localhost"
+            "host": "127.0.0.1",
+            "force": true
         },
         "server": {
+            "environment": "Production",
             "port": 5000,
             "jwtSecret": "random-secret-password",
             "jwtExpiration": "1h",
@@ -41,13 +47,15 @@
     },
     "test": {
         "database": {
-            "database": "baseProject",
+            "database": "base",
             "dialect": "postgres",
             "username": "postgres",
             "password": "postgres",
-            "host": "http://localhost"
+            "host": "127.0.0.1",
+            "force": true
         },
         "server": {
+            "environment": "Test",
             "port": 5000,
             "jwtSecret": "random-secret-password",
             "jwtExpiration": "1h",
@@ -59,5 +67,4 @@
             ]
         }
     }
-
 }
