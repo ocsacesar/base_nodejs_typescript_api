@@ -8,17 +8,17 @@
             "username": "postgres",
             "password": "postgres",
             "host": "127.0.0.1",
+            "port": 5432,
             "force": true
         },
         "server": {
             "environment": "Development",
             "port": 5000,
-            "jwtSecret": "random-secret-password",
+            "jwtSecret": "DC53DF9E4B33F6EF86957C3518967",
             "jwtExpiration": "1h",
             "routePrefix": "/api",
             "plugins": [
                 "jwt-auth",
-                "logger",
                 "swagger"
             ]
         }
@@ -30,17 +30,17 @@
             "username": "postgres",
             "password": "postgres",
             "host": "127.0.0.1",
-            "force": true
+            "port": 5432,
+            "force": false
         },
         "server": {
             "environment": "Production",
             "port": 5000,
-            "jwtSecret": "random-secret-password",
+            "jwtSecret": "DC53DF9E4B33F6EF86957C3518967",
             "jwtExpiration": "1h",
             "routePrefix": "/api",
             "plugins": [
                 "jwt-auth",
-                "logger",
                 "swagger"
             ]
         }
@@ -52,17 +52,17 @@
             "username": "postgres",
             "password": "postgres",
             "host": "127.0.0.1",
-            "force": true
+            "port": 5432,
+            "force": false
         },
         "server": {
             "environment": "Test",
             "port": 5000,
-            "jwtSecret": "random-secret-password",
+            "jwtSecret": "DC53DF9E4B33F6EF86957C3518967",
             "jwtExpiration": "1h",
             "routePrefix": "/api",
             "plugins": [
                 "jwt-auth",
-                "logger",
                 "swagger"
             ]
         }

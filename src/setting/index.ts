@@ -29,6 +29,7 @@ export interface IDatabaseSetting {
     username: string;
     password: string;
     host: string;
+    port: number;
     force: boolean;
 }
 
@@ -40,7 +41,7 @@ export function getEnvironment(): IServerSettings {
     return settings.get(environment).server.environment;
 }
 
-export function getSettings(): IEnvironment {
+export function getServerSettings(): IEnvironment {
     return settings.get(environment);
 }
 
@@ -58,4 +59,8 @@ export function getDatabase(): IDatabaseSetting {
 
 export function getServerInfo(): IServerSettings {
     return settings.get(environment).server;
+}
+
+export function getJwtSecret(): string {
+    return settings.get(environment).server.jwtSecret;
 }

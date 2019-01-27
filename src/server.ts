@@ -3,15 +3,22 @@
  */
 import * as Hapi from "hapi";
 import * as settings from "./setting";
-import { sequelize } from './dao/index';
+import { sequelize } from './database';
 import { Swagger } from "./plugins/swagger/swagger";
 import { Security } from "./plugins/jwt-auth/security";
 import * as Colors from "Colors";
 
-import * as User from "./app/users";
+import {AuthRoute} from "./app/security/authRoute";
+import {User} from "./database/models/User";
 
+/**
+ * Class responsible to configure and start the server.
+ */
 export class Server {
-
+    /**
+     * Constructor
+     * @param {string} env
+     */
     constructor(env = 'env') {
         // Setting environment
         settings.setEnvironment(env);
@@ -23,53 +30,46 @@ export class Server {
             .catch(err => console.log(Colors.red(err)));
     }
 
+    /**
+     * Set up the server, register plugins, routes and start it.
+     * @returns {Promise<any>}
+     */
     async init() {
 
         /**
-         * Create a server with a host and port
+         * Instantiate a server with a host and port
          */
         const server = Hapi.server({
             host: 'localhost',
-            port: settings.getSettings().server.port
+            port: settings.getServerSettings().server.port
         });
 
         /**
-         * Registering plugins
+         * Register plugins
          */
-        await sequelize.sync({force: settings.getDatabase().force});
+        await sequelize.sync({force: settings.getDatabase().force}).then(() => {
+            User.create({name: 'Usuário 1', email: 'email1@email.com', password: '111'});
+            User.create({name: 'Usuário 2', email: 'email2@email.com', password: '222'});
+        });
 
         const swagger = new Swagger();
         await swagger.register(server);
 
         const security = new Security();
-        await security.register(server, null);
+        await security.register(server);
 
         /**
-         * Routes
+         * Configure Routes
          */
-        User.init(server, settings.getServerInfo(), sequelize);
+        AuthRoute.init(server, settings.getServerInfo());
 
-        server.route([
-            {
-                method: "GET", path: "/", config: { auth: false },
-                handler: (request, reply) => {
-                    return 'Token not required';
-                }
-            },
-            {
-                method: 'GET', path: '/restricted', config: { auth: 'jwt' },
-                handler: (request, reply) => {
-                    return 'You used a Token!';
-                    // reply({text: 'You used a Token!'})
-                    //     .header("Authorization", request.headers.authorization);
-                }
-            }
-        ]);
-
+        /**
+         * Start the server
+         */
         try {
             await server.start();
         } catch (err) {
-            console.log(err);
+            console.log(Colors.red(err));
             process.exit(1);
         }
 
