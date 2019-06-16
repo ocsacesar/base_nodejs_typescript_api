@@ -17,7 +17,7 @@ export class NotificationRoute {
             path: '/notifications',
             config: {
                 handler: notificationController.notification,
-                auth: "true",
+                auth: 'jwt',
                 tags: ['api', 'notification'],
                 description: 'Get a Notification',
                 response: {
@@ -29,8 +29,8 @@ export class NotificationRoute {
                             '200': {
                                 'description': 'Notification sent successfully'
                             },
-                            '400': {
-                                'description': 'Bad Request'
+                            '401': {
+                                'description': 'Unauthorized'
                             }
                         }
                     }

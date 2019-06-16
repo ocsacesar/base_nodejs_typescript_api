@@ -8,9 +8,3 @@ export const createUserModel = Joi.object().keys({
     name: Joi.string().required(),
     password: Joi.string().trim().required()
 });
-
-export const createUserModelResponse = Joi.object().keys({
-    id: Joi.number().required(),
-    username: Joi.string().trim().required(),
-    name: Joi.string().required()
-});

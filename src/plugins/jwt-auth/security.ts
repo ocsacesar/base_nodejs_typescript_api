@@ -4,31 +4,22 @@
 import * as Hapi from "hapi";
 import * as HapiAuthJwt from "hapi-auth-jwt2";
 import * as settings from "../../setting";
+import {User} from "../../database/models/User";
 
 export class Security {
 
     async register(server: Hapi.Server) {
 
-        const people = { // our "users database"
-            1: {
-                id: 1,
-                name: 'Jen Jones'
-            }
-        };
-
         const validate = async function (decoded, request) {
 
-            console.log(decoded);
+            const user = await User.find({
+                where: {
+                    id: decoded.data.id,
+                    username: decoded.data.username
+                }
+            });
 
-            // do your checks to see if the person is valid
-            if (!people[decoded.id]) {
-                console.log('isValid');
-                return { isValid: false };
-            } else {
-                console.log('isValid');
-                return { isValid: true };
-            }
-
+            return { isValid: user != null};
 
         };
 
