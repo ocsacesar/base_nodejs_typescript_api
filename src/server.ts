@@ -10,6 +10,8 @@ import * as Colors from "Colors";
 
 import {AuthRoute} from "./app/security/authRoute";
 import {User} from "./database/models/User";
+import {UserRoute} from "./app/users/userRoute";
+import {NotificationRoute} from "./app/notifications/notificationRoute";
 
 /**
  * Class responsible to configure and start the server.
@@ -48,8 +50,7 @@ export class Server {
          * Register plugins
          */
         await sequelize.sync({force: settings.getDatabase().force}).then(() => {
-            User.create({name: 'Usuário 1', email: 'email1@email.com', password: '111'});
-            User.create({name: 'Usuário 2', email: 'email2@email.com', password: '222'});
+            User.create({name: 'Usuário 1', username: 'user1', password: '111111'});
         });
 
         const swagger = new Swagger();
@@ -62,6 +63,8 @@ export class Server {
          * Configure Routes
          */
         AuthRoute.init(server, settings.getServerInfo());
+        UserRoute.init(server, settings.getServerInfo());
+        NotificationRoute.init(server, settings.getServerInfo());
 
         /**
          * Start the server

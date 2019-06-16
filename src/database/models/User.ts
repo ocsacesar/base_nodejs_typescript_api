@@ -8,11 +8,11 @@ import {
 } from 'sequelize-typescript';
 
 @DefaultScope({
-    attributes: ['id', 'name', 'email', 'password']
+    attributes: ['id', 'name', 'username', 'password']
 })
 @Scopes({
     login: {
-        attributes: ['id', 'name', 'email', 'password']
+        attributes: ['id', 'name', 'username', 'password']
     }
 })
 @Table({tableName: 'user'})
@@ -22,7 +22,7 @@ export class User extends Model<User> {
     name: string;
 
     @Column
-    email: string;
+    username: string;
 
     @Column
     password: string;

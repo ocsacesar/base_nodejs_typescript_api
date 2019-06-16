@@ -15,17 +15,18 @@ export class AuthController {
     }
 
     public async login(request: Hapi.Request, reply: Hapi.ReplyNoContinue) {
-        const email = request.payload.email;
+        const username = request.payload.username;
         const password = request.payload.password;
 
-        let user = await User.scope('login').findOne({where: {email: email}});
+        let user = await User.scope('login').findOne({where: {username: username}});
 
         if (user != null) {
             let passwordValid = await Bcrypt.compareSync(password, user.password);
             if (passwordValid) {
                 let responseValue = {
-                    'name': user.name,
-                    'token': this.generateToken(user)
+                    'id': user.id,
+                    'username': user.username,
+                    'accessToken': this.generateToken(user)
                 };
                 return responseValue;
             }
@@ -34,7 +35,7 @@ export class AuthController {
         return Boom.unauthorized('Invalid username or password');
     }
 
-    private generateToken(user) {
+    public generateToken(user) {
         const jwtSecret = this.serverSettings.jwtSecret;
         const jwtExpiration = this.serverSettings.jwtExpiration;
 
