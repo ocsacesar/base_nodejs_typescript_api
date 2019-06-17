@@ -12,6 +12,7 @@ import {AuthRoute} from "./app/security/authRoute";
 import {User} from "./database/models/User";
 import {UserRoute} from "./app/users/userRoute";
 import {NotificationRoute} from "./app/notifications/notificationRoute";
+import * as Path from "path";
 
 /**
  * Class responsible to configure and start the server.
@@ -45,7 +46,10 @@ export class Server {
             host: 'localhost',
             port: settings.getServerSettings().server.port,
             routes: {
-                cors: true
+                cors: true,
+                files: {
+                    relativeTo: Path.join(__dirname, 'public/')
+                }
             }
         });
 
@@ -61,6 +65,38 @@ export class Server {
 
         const security = new Security();
         await security.register(server);
+
+        // Server the index.html
+        server.route({
+            method: 'GET',
+            path: '/',
+            config: {
+                auth: false,
+                handler: function (request, h) {
+                    return h.file('index.html');
+                }
+            }
+        });
+
+        // Server all files required by index.html
+        server.route({
+            method: 'GET',
+            path: '/{filename}',
+            config: {
+                auth: false,
+                handler: {
+                    file: function (request) {
+                        const filename = request.params.filename;
+
+                        if (filename.indexOf('.') >= 0) {
+                            return request.params.filename;
+                        } else {
+                            return 'index.html';
+                        }
+                    }
+                }
+            }
+        });
 
         /**
          * Configure Routes

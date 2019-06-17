@@ -37,6 +37,11 @@ gulp.task('watch', shell.task(['npm run tsc-watch']));
 gulp.task('configs', () => gulp.src("src/setting/*.json").pipe(gulp.dest('./build/src/setting')));
 
 /**
+ * Copy public folder
+ */
+gulp.task('public', () => gulp.src("src/public/*").pipe(gulp.dest('./build/src/public')));
+
+/**
  * Build the project.
  */
-gulp.task('build', gulp.parallel('tslint', 'compile', 'configs'), () => console.log('Building the project ...'));
+gulp.task('build', gulp.parallel('tslint', 'compile', 'configs', 'public'), () => console.log('Building the project ...'));
