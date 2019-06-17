@@ -43,7 +43,10 @@ export class Server {
          */
         const server = Hapi.server({
             host: 'localhost',
-            port: settings.getServerSettings().server.port
+            port: settings.getServerSettings().server.port,
+            routes: {
+                cors: true
+            }
         });
 
         /**

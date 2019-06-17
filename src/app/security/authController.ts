@@ -32,7 +32,7 @@ export class AuthController {
             }
         }
 
-        return Boom.unauthorized('Invalid username or password');
+        return Boom.notFound('Invalid username or password');
     }
 
     public generateToken(user) {

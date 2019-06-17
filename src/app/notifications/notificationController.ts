@@ -15,7 +15,7 @@ export class NotificationController {
     public async notification(request: Hapi.Request, reply: Hapi.ReplyNoContinue) {
         return {
             status: true,
-            message: 'Message received by server on ' + new Date()
+            message: 'Message received from server on ' + new Date()
         };
     }
 }
